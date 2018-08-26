@@ -1,8 +1,8 @@
-package com.example.david0926.templete;
+package com.example.david0926.templete.People;
 
 
-public class RecycleModel_Chat {
-    private String name, msg, time;
+public class RecycleModel_People {
+    private String name, msg;
     private int profileId;
 
     public int getProfileId() {
@@ -29,11 +29,4 @@ public class RecycleModel_Chat {
         this.msg = msg;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 }

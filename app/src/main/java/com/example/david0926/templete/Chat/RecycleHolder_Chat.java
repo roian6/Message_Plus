@@ -1,9 +1,11 @@
-package com.example.david0926.templete;
+package com.example.david0926.templete.Chat;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.david0926.templete.R;
 
 public class RecycleHolder_Chat extends RecyclerView.ViewHolder{
 

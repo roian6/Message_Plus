@@ -1,9 +1,12 @@
 package com.example.david0926.templete;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.david0926.templete.Chat.Tab_Chat;
+import com.example.david0926.templete.People.Tab_People;
+import com.example.david0926.templete.Setting.Tab_Setting;
 
 public class TabAdapter extends FragmentPagerAdapter{
 

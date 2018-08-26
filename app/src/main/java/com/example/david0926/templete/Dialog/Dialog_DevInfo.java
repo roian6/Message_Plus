@@ -1,10 +1,12 @@
-package com.example.david0926.templete;
+package com.example.david0926.templete.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.example.david0926.templete.R;
 
 
 public class Dialog_DevInfo extends DialogFragment{
