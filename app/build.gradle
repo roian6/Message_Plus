@@ -19,6 +19,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -33,3 +34,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:preference-v14:27.1.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
