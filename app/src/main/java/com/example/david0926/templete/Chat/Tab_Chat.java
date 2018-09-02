@@ -1,5 +1,6 @@
 package com.example.david0926.templete.Chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,6 +65,8 @@ public class Tab_Chat extends Fragment{
             @Override
             public void ItemClick(View v, int position) {
                 Toast.makeText(getContext(), position + "clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), ChatPageActivity.class));
+
             }
         }));
         //end of recyclerview

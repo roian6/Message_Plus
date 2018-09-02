@@ -3,8 +3,8 @@
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Message Plus+</string>
-    <string name="nav_header_subtitle">당신에게 더 가까운 메세지</string>
+    <string name="nav_header_title">Hatban</string>
+    <string name="nav_header_subtitle">#Coding_Slave</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Development Info</string>
     <string name="title_activity_settings">Settings</string>
