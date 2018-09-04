@@ -1,12 +1,17 @@
 package com.example.david0926.templete.Chat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.example.david0926.templete.R;
@@ -37,7 +42,17 @@ public class ChatPageActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_chatpage);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_chatpage);
+        toolbar.setTitle("Hatban");
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         rcv = findViewById(R.id.recycler_chatpage);
         rcv.setLayoutManager(new LinearLayoutManager(this));
@@ -86,5 +101,11 @@ public class ChatPageActivity extends AppCompatActivity{
             databaseReference.child("message").push().setValue(model);
             input.setText("");
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

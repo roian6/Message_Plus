@@ -81,6 +81,12 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
-    <string name="dialog_devinfo">Message Plus+ 2018\nby david0926(정찬효)\n\n\nMessage Plus+는 정식으로 등록된 상표가 아니며, \n프로그램의 개발명입니다.</string>
+    <string name="dialog_devinfo">
+        Message Plus+ 2018
+        by david0926(정찬효)
+
+        Message Plus+는 정식으로 등록된 상표가 아니며,
+        프로그램의 개발명입니다.
+    </string>
 
 </resources>
