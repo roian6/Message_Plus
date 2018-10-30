@@ -25,7 +25,7 @@
             android:id="@+id/recycler_chatpage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/recycle_item_chatpage">
+            tools:listitem="@layout/recycle_item_chatpage_get">
 
         </android.support.v7.widget.RecyclerView>
 

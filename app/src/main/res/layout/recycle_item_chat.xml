@@ -38,7 +38,6 @@
                     android:text="Name"
                     android:id="@+id/chat_name"
                     android:textColor="#000000"
-                    android:fontFamily=""
                     />
                 <TextView
                     android:layout_marginTop="6dp"
