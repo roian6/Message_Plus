@@ -15,8 +15,17 @@ public class RecycleAdapter_Chat extends RecyclerView.Adapter<RecycleHolder_Chat
 
     List<RecycleModel_Chat> items = new ArrayList<>();
 
+    public List<RecycleModel_Chat> getItems() {
+        return items;
+    }
+
     public void add(RecycleModel_Chat data){
         items.add(data);
+        notifyDataSetChanged();
+    }
+
+    public void delete(int position){
+        items.remove(items.get(position));
         notifyDataSetChanged();
     }
 
@@ -31,10 +40,10 @@ public class RecycleAdapter_Chat extends RecyclerView.Adapter<RecycleHolder_Chat
     @Override
     public void onBindViewHolder(@NonNull RecycleHolder_Chat holder, int position) {
         RecycleModel_Chat item = items.get(position);
-        holder.name.setText(item.getName());
+        holder.name.setText(item.getNickname()+" ("+item.getName()+")");
         holder.msg.setText(item.getMsg());
         holder.time.setText(item.getTime());
-        holder.profile.setImageResource(items.get(position).getProfileId());
+        //holder.profile.setImageResource(items.get(position).getProfileId());
     }
 
     @Override

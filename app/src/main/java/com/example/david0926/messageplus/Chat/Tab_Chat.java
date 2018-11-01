@@ -12,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.david0926.messageplus.Auth.UserDB;
+import com.example.david0926.messageplus.Auth.UserModel;
 import com.example.david0926.messageplus.R;
 import com.example.david0926.messageplus.RecycleListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +35,10 @@ public class Tab_Chat extends Fragment{
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
+    private FirebaseAuth firebaseAuth;
+
+    UserDB userDB = new UserDB();
+
     List<RecycleModel_Chat> items = new ArrayList<>();
     List<String> chatList = new ArrayList<>();
 
@@ -38,6 +46,10 @@ public class Tab_Chat extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_chat, container, false);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+
         rcv = v.findViewById(R.id.chat_recycler);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
@@ -52,30 +64,44 @@ public class Tab_Chat extends Fragment{
 //        ImageView profile = itemImageView.findViewById(R.id.chat_profile);
 //        profile.setBackground(new ShapeDrawable(new OvalShape()));
 //        profile.setClipToOutline(true);
-        RecycleModel_Chat model = new RecycleModel_Chat();
-        model.setProfileId(R.drawable.omnyomnyom_profile);
-        model.setName("Hatban");
-        model.setMsg("Have a nice day!");
-        model.setTime("3:25 PM");
-        chatList.add(model.getName());
-        //rcvAdap.notifyDataSetChanged();
+
 
         databaseReference.child("message").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 RecycleModel_Chat model = new RecycleModel_Chat();
-                model.setName(dataSnapshot.getValue(RecycleModel_ChatPage.class).getName());
-                model.setMsg(dataSnapshot.getValue(RecycleModel_ChatPage.class).getMsg());
-                model.setTime(dataSnapshot.getValue(RecycleModel_ChatPage.class).getTime());
-                model.setProfileId(R.drawable.ic_person);
-                for(int i=0;i<chatList.size();i++){
-                    if(!model.getName().equals(chatList.get(i))){
-                        chatList.add(model.getName());
-                        rcvAdap.add(model);
-                        rcvAdap.notifyDataSetChanged();
-                        return;
+                RecycleModel_ChatPage member = dataSnapshot.getValue(RecycleModel_ChatPage.class);
+                model.setName(member.getName());
+                model.setMsg(member.getMsg());
+                model.setTime(member.getTime());
+                model.setNickname(member.getNickname());
+                //model.setProfileNum(member.get);
+
+                if(member.getTo().equals(user.getEmail())){
+                    for(int i=0;i<rcvAdap.getItems().size();i++){
+                        if(member.getName().equals(rcvAdap.getItems().get(i).getName())){
+                            rcvAdap.delete(i);
+                        }
                     }
+                    items.add(model);
+                    rcvAdap.add(model);
+                    rcvAdap.notifyDataSetChanged();
                 }
+                else if (member.getName().equals(user.getEmail())){
+
+                    for(int i=0;i<rcvAdap.getItems().size();i++){
+                        if(member.getTo().equals(rcvAdap.getItems().get(i).getName())){
+                            rcvAdap.delete(i);
+                        }
+                    }
+                    model.setName(member.getTo());
+                    model.setNickname(member.getNicknameto());
+                    model.setMsg("회원님: " + member.getMsg());
+                    items.add(model);
+                    rcvAdap.add(model);
+                    rcvAdap.notifyDataSetChanged();
+                }
+
 
             }
 
@@ -100,28 +126,19 @@ public class Tab_Chat extends Fragment{
             }
         });
 
-        for(int i=0;i<10;i++) {
-//            itemImageView = inflater.inflate(R.layout.recycle_item_chat, container, false);
-//            profile = itemImageView.findViewById(R.id.chat_profile);
-//            profile.setBackground(new ShapeDrawable(new OvalShape()));
-//            profile.setClipToOutline(true);
-            model = new RecycleModel_Chat();
-            model.setProfileId(R.drawable.ic_person);
-            model.setName("Someone");
-            model.setMsg("Hello World!");
-            model.setTime("12:53 PM");
-            rcvAdap.add(model);
-            rcvAdap.notifyDataSetChanged();
-        }
+//        for(int i=0;i<items.size();i++){
+//
+//        }
 
-        rcv.addOnItemTouchListener(new RecycleListener(getContext(), rcv, new RecycleListener.OnClickListener() {
+        RecycleClick_Chat.addTo(rcv).setOnItemClickListener(new RecycleClick_Chat.OnItemClickListener() {
             @Override
-            public void ItemClick(View v, int position) {
-                Toast.makeText(getContext(), position + "clicked", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), ChatPageActivity.class));
-
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent intent = new Intent(getContext(), ChatPageActivity.class);
+                intent.putExtra("name", rcvAdap.getItems().get(position).getName());
+                intent.putExtra("nickname", rcvAdap.getItems().get(position).getNickname());
+                startActivity(intent);
             }
-        }));
+        });
         //end of recyclerview
 
 

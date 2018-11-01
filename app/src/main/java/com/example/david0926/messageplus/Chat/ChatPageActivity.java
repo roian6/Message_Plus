@@ -1,5 +1,6 @@
 package com.example.david0926.messageplus.Chat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.example.david0926.messageplus.Auth.UserDB;
 import com.example.david0926.messageplus.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ChatPageActivity extends AppCompatActivity{
@@ -51,12 +51,12 @@ public class ChatPageActivity extends AppCompatActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_chatpage);
-
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+        final Intent intent = getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_chatpage);
-        toolbar.setTitle("Hatban");
+        toolbar.setTitle(intent.getStringExtra("nickname")+" ("+intent.getStringExtra("name")+")");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,25 +67,16 @@ public class ChatPageActivity extends AppCompatActivity{
         rcv.setLayoutManager(new LinearLayoutManager(this));
         rcvAdap = new RecycleAdapter_ChatPage();
         rcv.setAdapter(rcvAdap);
-        RecycleModel_ChatPage model = new RecycleModel_ChatPage();
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-
-        model.setName("Hatban");
-        model.setUid(user.getUid());
-        model.setTo("default");
-        model.setTime(getTime());
-        model.setMsg("Hell World!");
-        model.setTime(getTime());
-        rcvAdap.add(model);
-        rcvAdap.notifyDataSetChanged();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         databaseReference.child("message").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 RecycleModel_ChatPage model = dataSnapshot.getValue(RecycleModel_ChatPage.class);
-                if(model.getTo().equals("default")) rcvAdap.add(model);
+                if((model.getTo().equals(user.getEmail()) && intent.getStringExtra("name").equals(model.getName()) || (intent.getStringExtra("name").equals(model.getTo()) && model.getName().equals(user.getEmail())))) {
+                    rcvAdap.add(model);
+                }
                 rcv.scrollToPosition(rcvAdap.getItemCount() -1 );
             }
 
@@ -116,7 +107,10 @@ public class ChatPageActivity extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(!input.getText().toString().equals("")){
-            RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), "default", input.getText().toString(), getTime());
+            Intent intent = getIntent();
+            UserDB userDB = new UserDB();
+            String nickname = userDB.getUserNickname(getApplicationContext());
+            RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), intent.getStringExtra("name"), input.getText().toString(), getTime(), nickname, intent.getStringExtra("nickname"));
             databaseReference.child("message").push().setValue(model);
             input.setText("");
         }

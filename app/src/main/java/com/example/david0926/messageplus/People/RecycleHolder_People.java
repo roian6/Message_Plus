@@ -9,14 +9,15 @@ import com.example.david0926.messageplus.R;
 
 public class RecycleHolder_People extends RecyclerView.ViewHolder{
 
-    public TextView name, msg;
+    public TextView nickname, email, intro;
     public ImageView profile;
     public int profileId;
 
     public RecycleHolder_People(View itemView, int imageId) {
         super(itemView);
-        name = itemView.findViewById(R.id.people_name);
-        msg = itemView.findViewById(R.id.people_msg);
+        nickname = itemView.findViewById(R.id.people_name);
+        email = itemView.findViewById(R.id.people_email);
+        intro = itemView.findViewById(R.id.people_msg);
         profile = itemView.findViewById(R.id.people_profile);
         profileId = imageId;
 

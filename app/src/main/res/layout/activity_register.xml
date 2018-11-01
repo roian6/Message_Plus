@@ -42,6 +42,13 @@
                 android:hint="Nickname"
                 android:id="@+id/reg_nickname"
                 />
+            <EditText
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Introduce"
+                android:id="@+id/reg_intro"
+                />
 
             <EditText
                 android:layout_marginTop="16dp"

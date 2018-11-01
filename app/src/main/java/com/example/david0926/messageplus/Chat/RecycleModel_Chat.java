@@ -2,23 +2,41 @@ package com.example.david0926.messageplus.Chat;
 
 
 public class RecycleModel_Chat {
-    private String name, msg, time;
-    private int profileId;
+    private String name, msg, time, nickname;
+    private int profilenum;
 
     public RecycleModel_Chat(){}
 
-    public RecycleModel_Chat(String name, String msg, String time){
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getProfilenum() {
+        return profilenum;
+    }
+
+    public void setProfilenum(int profilenum) {
+        this.profilenum = profilenum;
+    }
+
+    public RecycleModel_Chat(String name, String msg, String time, String nickname){
         this.name=name;
         this.msg=msg;
         this.time=time;
+        this.nickname=nickname;
+        this.profilenum=profilenum;
     }
 
-    public int getProfileId() {
-        return profileId;
+    public int getProfileNum() {
+        return profilenum;
     }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
+    public void setProfileNum() {
+        this.profilenum = profilenum;
     }
 
     public String getName() {

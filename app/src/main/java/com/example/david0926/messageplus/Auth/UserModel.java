@@ -2,14 +2,35 @@ package com.example.david0926.messageplus.Auth;
 
 public class UserModel {
 
-    private String nickname, email, userkey;
+    private String nickname, email, userkey, intro;
+    int profilenum;
 
-    public UserModel(String nickname, String email, String userkey){
+
+    public UserModel(String nickname, String email, String userkey, String intro, int profilenum){
         this.nickname = nickname;
         this.email = email;
         this.userkey = userkey;
-
+        this.intro=intro;
+        this.profilenum=profilenum;
     }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public int getProfilenum() {
+        return profilenum;
+    }
+
+    public void setProfilenum(int profilenum) {
+        this.profilenum = profilenum;
+    }
+
+
 
     public UserModel(){}
 

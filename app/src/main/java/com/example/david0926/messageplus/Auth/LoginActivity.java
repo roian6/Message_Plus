@@ -11,6 +11,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import com.example.david0926.messageplus.DBLoadActivity;
 import com.example.david0926.messageplus.MainActivity;
 import com.example.david0926.messageplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "Login Success",
                             Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(), "Hello, "+user.getEmail()+"!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, DBLoadActivity.class));
 
                 }
                 else{
@@ -103,7 +105,7 @@ public class LoginActivity extends AppCompatActivity{
                             Toast.makeText(getApplicationContext(), "Login Success",
                                     Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplicationContext(), "Hello, "+id.getText().toString()+"!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            startActivity(new Intent(LoginActivity.this, DBLoadActivity.class));
                             finish();
                         }
                         else {

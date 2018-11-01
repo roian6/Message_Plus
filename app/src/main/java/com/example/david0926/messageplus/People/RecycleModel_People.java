@@ -3,14 +3,14 @@ package com.example.david0926.messageplus.People;
 
 public class RecycleModel_People {
     private String name, msg;
-    private int profileId;
+    private int profilenum;
 
-    public int getProfileId() {
-        return profileId;
+    public int getProfilenum() {
+        return profilenum;
     }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
+    public void setProfilenum(int profilenum) {
+        this.profilenum = profilenum;
     }
 
     public String getName() {

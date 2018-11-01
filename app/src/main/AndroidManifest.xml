@@ -22,6 +22,9 @@
         <activity android:name=".Auth.LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Chat.ChatPageActivity"/>
+        <activity android:name=".Dialog.Dialog_People"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".DBLoadActivity"/>
 
 
 

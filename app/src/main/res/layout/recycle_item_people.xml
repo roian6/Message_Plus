@@ -34,18 +34,31 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@+id/people_profile">
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:id="@+id/people_name"
-                    android:textColor="#000000"
-                    android:fontFamily=""
-                    />
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:id="@+id/people_name"
+                        android:textColor="#000000"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:id="@+id/people_email"
+                        />
+                </LinearLayout>
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:text="Message"
                     android:id="@+id/people_msg"
                     android:maxLines="1"

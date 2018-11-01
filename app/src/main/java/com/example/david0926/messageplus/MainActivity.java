@@ -3,6 +3,8 @@ package com.example.david0926.messageplus;
 
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
@@ -19,19 +21,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.david0926.messageplus.Auth.UserDB;
 import com.example.david0926.messageplus.Auth.LoginActivity;
+import com.example.david0926.messageplus.Auth.UserModel;
 import com.example.david0926.messageplus.Dialog.Dialog_DevInfo;
 import com.example.david0926.messageplus.Dialog.Dialog_User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private FirebaseAuth firebaseAuth;
 
-    public String userID="TestID", userNickname="TestNickname";
+    public String nickName;
     TextView title;
+
+    public String getNickName() {
+        return nickName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //user
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
         //Toolbar
@@ -109,8 +124,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    }
 
+
+
+
+    }
 
 
     @Override

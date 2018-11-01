@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity{
 
-    EditText id, password, passwordcheck, nickname;
+    EditText id, password, passwordcheck, nickname, intro;
     private FirebaseAuth firebaseAuth;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         id = findViewById(R.id.reg_id);
         nickname = findViewById(R.id.reg_nickname);
+        intro = findViewById(R.id.reg_intro);
         password = findViewById(R.id.reg_password);
         passwordcheck = findViewById(R.id.reg_passwordcheck);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -79,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    private void createAccount(final String email, final String password, final String passwordcheck, final String nickname) {
+    private void createAccount(final String email, final String password, final String passwordcheck, final String nickname, final String intro) {
         if(!isValidEmail(email)){
             Toast.makeText(getApplicationContext(), "Email is not valid",
                     Toast.LENGTH_SHORT).show();
@@ -101,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity{
                             Toast.makeText(getApplicationContext(), "Authentication Success",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            UserModel model = new UserModel(nickname, email, user.getUid());
+                            UserModel model = new UserModel(nickname, email, user.getUid(), intro, 1);
                             databaseReference.child("user").push().setValue(model);
                             Toast.makeText(getApplicationContext(), "Welcome, "+id.getText().toString()+"!", Toast.LENGTH_SHORT).show();
                             finish();
@@ -121,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         switch (view.getId()){
             case R.id.btn_register:
-                createAccount(id.getText().toString(), password.getText().toString(), passwordcheck.getText().toString(), nickname.getText().toString());
+                createAccount(id.getText().toString(), password.getText().toString(), passwordcheck.getText().toString(), nickname.getText().toString(), intro.getText().toString());
                 break;
         }
     }
