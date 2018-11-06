@@ -1,14 +1,26 @@
 package com.example.david0926.messageplus;
 
 
-
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,14 +28,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.david0926.messageplus.Auth.UserDB;
 import com.example.david0926.messageplus.Auth.LoginActivity;
 import com.example.david0926.messageplus.Auth.UserModel;
+import com.example.david0926.messageplus.Chat.ChatPageActivity;
+import com.example.david0926.messageplus.Chat.RecycleModel_ChatPage;
 import com.example.david0926.messageplus.Dialog.Dialog_DevInfo;
 import com.example.david0926.messageplus.Dialog.Dialog_User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,19 +50,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
-    private FirebaseAuth firebaseAuth;
 
-    public String nickName;
+
+
     TextView title;
-
-    public String getNickName() {
-        return nickName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //user
-        firebaseAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
         //Toolbar
@@ -85,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager pager = findViewById(R.id.pager);
-        final TabAdapter adapter  = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         pager.getRootView().setBackgroundColor(Color.WHITE);
@@ -106,6 +120,127 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        databaseReference.child("message").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                final RecycleModel_ChatPage model = dataSnapshot.getValue(RecycleModel_ChatPage.class);
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                GetTimeDate getTimeDate = new GetTimeDate();
+
+
+
+                if (!model.getName().equals(user.getEmail()) && model.getTo().equals(user.getEmail())) {
+                    if (model.getTime().equals(getTimeDate.getTime()) && model.getDate().equals(getTimeDate.getDate())) {
+                        CheckBackground checkBackground = new CheckBackground();
+                        if(checkBackground.isAppBackground(getApplicationContext())){
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                NotificationChannel notificationChannel = new NotificationChannel("ChannelID", "ChannelName", NotificationManager.IMPORTANCE_DEFAULT);
+                                notificationChannel.enableLights(true);
+                                notificationChannel.setLightColor(Color.GREEN);
+                                notificationChannel.enableVibration(true);
+                                notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                                notificationManager.createNotificationChannel(notificationChannel);
+
+                                Notification.Builder builder = new Notification.Builder(getApplicationContext(), "ChannelID");
+
+                                builder.setContentTitle(model.getNickname() + " (" + model.getName() + ")")
+                                        .setContentText(model.getMsg())
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                                        .setAutoCancel(true)
+                                        .setVisibility(Notification.VISIBILITY_PUBLIC);
+
+                                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                                Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
+                                intent.putExtra("name", model.getName());
+                                intent.putExtra("nickname", model.getNickname());
+
+                                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                builder.setContentIntent(pendingIntent);
+                                notificationManager.notify(1234, builder.build());
+
+
+                            }
+                            else {
+
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+                                        .setContentTitle(model.getNickname() + " (" + model.getName() + ")")
+                                        .setContentText(model.getMsg())
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                                        .setAutoCancel(true)
+                                        .setVisibility(Notification.VISIBILITY_PUBLIC)
+                                        .setVibrate(new long[]{1000, 1000});
+
+
+                                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Toast.makeText(getApplicationContext(), model.getName(), Toast.LENGTH_SHORT).show();
+
+                                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
+
+                                builder.setContentIntent(pendingIntent);
+                                NotificationManager notificationManager =
+                                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                notificationManager.notify(1234, builder.build());
+                            }
+                        }
+                        else {
+                            Snackbar snackbar = Snackbar.make(pager, model.getNickname()+": "+model.getMsg(), Snackbar.LENGTH_LONG);
+                            snackbar.setAction("확인하기", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
+                                    intent.putExtra("name", model.getName());
+                                    intent.putExtra("nickname", model.getNickname());
+                                    startActivity(intent);
+                                }
+                            });
+                            snackbar.setActionTextColor(Color.parseColor("#80cbc4"));
+                            View snackBarView = snackbar.getView();
+                            snackBarView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            snackBarView.setPadding(12, 12, 12, 12);
+                            TextView textView = snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+                            textView.setBackground(getDrawable(R.drawable.snackbar_noti));
+                            textView.setTextColor(Color.BLACK);
+                            snackbar.show();
+                            Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                            vibrator.vibrate(200);
+                        }
+
+
+
+
+
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         //Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,12 +255,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        title = findViewById(R.id.navTitle);
 //        title.setText("hatban");
         //end of Navigation Drawer
-
-
-
-
-
-
 
 
     }

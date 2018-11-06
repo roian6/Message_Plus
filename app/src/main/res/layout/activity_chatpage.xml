@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:launchMode="singleInstance"
+    android:excludeFromRecents="true"
+    android:taskAffinity="">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_chatpage"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        />
+        android:background="@color/colorPrimary" />
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_chatpage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             tools:listitem="@layout/recycle_item_chatpage_get">
 
         </android.support.v7.widget.RecyclerView>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="7">
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="64dp"
-            android:id="@+id/chat_input"/>
-        <Button
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:onClick="onSend"
-            android:text="SEND"
-            android:textColor="@color/colorPrimary"
-            android:background="#FFFFFF"
-            android:id="@+id/chat_send"/>
+            android:orientation="horizontal"
+            android:layout_margin="4dp">
+
+            <EditText
+                android:id="@+id/chat_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="bottom"
+                android:hint="Aa" />
+
+            <Button
+                android:id="@+id/chat_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSend"
+                android:text="보내기"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"/>
 
 
-    </RelativeLayout>
+        </LinearLayout>
 
-
-
+    </LinearLayout>
 
 
 </LinearLayout>

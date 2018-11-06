@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
     android:background="@color/colorPrimary">
 
 
@@ -10,22 +12,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create an account"
+        android:text="계정 만들기"
         android:textSize="36dp"
-        android:layout_marginTop="64dp"
         android:textColor="#FFFFFF"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/title_login"/>
 
-
     <android.support.v7.widget.CardView
+        android:layout_marginTop="36dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:id="@+id/card_login"
-        android:layout_centerInParent="true"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -39,29 +39,31 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nickname"
+                android:hint="닉네임 (최대 8자)"
                 android:id="@+id/reg_nickname"
+                android:maxLength="8"
                 />
             <EditText
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Introduce"
+                android:hint="한줄소개 (최대 20자)"
                 android:id="@+id/reg_intro"
+                android:maxLength="20"
                 />
 
             <EditText
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="ID or Email"
+                android:hint="이메일"
                 android:id="@+id/reg_id"
                 />
             <EditText
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="패스워드 (a-Z, 0-9, 8자 이상)"
                 android:inputType="textPassword"
                 android:id="@+id/reg_password"
                 />
@@ -69,7 +71,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password2"
+                android:hint="패스워드 확인"
                 android:inputType="textPassword"
                 android:id="@+id/reg_passwordcheck"
                 />
@@ -83,24 +85,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/card_login"
         android:layout_margin="14dp">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="회원가입"
             android:textAllCaps="false"
             android:id="@+id/btn_register"
             android:onClick="onClick"
             android:background="@color/colorPrimaryDark"
             android:textColor="#FFFFFF"/>
+
     </LinearLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorPrimaryLight"
+        android:visibility="invisible"
+        android:id="@+id/progress_regi" />
 
 
 
 
 
 
-</RelativeLayout>
+
+</LinearLayout>

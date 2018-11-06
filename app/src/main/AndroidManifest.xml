@@ -3,6 +3,7 @@
     package="com.example.david0926.messageplus">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,7 @@
         <activity android:name=".Chat.ChatPageActivity"/>
         <activity android:name=".Dialog.Dialog_People"
             android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".DBLoadActivity"/>
+        <activity android:name=".Auth.DBLoadActivity"/>
 
 
 

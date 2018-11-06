@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@color/materialBlack"
-        android:src="@drawable/ic_people_white" />
+        android:src="@drawable/ic_people_white"
+        android:id="@+id/dialog_people_profile"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,14 +68,14 @@
         <Button
             android:id="@+id/btn_people_cancel"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:textColor="@color/materialGreen"
+            android:textColor="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소" />
         <Button
             android:id="@+id/btn_people_ok"
             android:textColor="@android:color/white"
-            android:backgroundTint="@color/materialGreen"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="대화하기" />

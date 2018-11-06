@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.example.david0926.messageplus.Auth.UserDB;
+import com.example.david0926.messageplus.GetTimeDate;
 import com.example.david0926.messageplus.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,12 +39,9 @@ public class ChatPageActivity extends AppCompatActivity{
     RecycleAdapter_ChatPage rcvAdap;
     EditText input;
 
-    String getTime(){
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa");
-        String time1 = simpleDateFormat.format(date);
-        return time1;
-    }
+    String intentName, intentNickname;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,12 +49,14 @@ public class ChatPageActivity extends AppCompatActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_chatpage);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-        final Intent intent = getIntent();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_chatpage);
-        toolbar.setTitle(intent.getStringExtra("nickname")+" ("+intent.getStringExtra("name")+")");
+        intentName = getIntent().getStringExtra("name");
+        intentNickname = getIntent().getStringExtra("nickname");
+        Toolbar toolbar = findViewById(R.id.toolbar_chatpage);
+        toolbar.setTitle(intentNickname);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,7 +74,7 @@ public class ChatPageActivity extends AppCompatActivity{
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 RecycleModel_ChatPage model = dataSnapshot.getValue(RecycleModel_ChatPage.class);
-                if((model.getTo().equals(user.getEmail()) && intent.getStringExtra("name").equals(model.getName()) || (intent.getStringExtra("name").equals(model.getTo()) && model.getName().equals(user.getEmail())))) {
+                if((model.getTo().equals(user.getEmail()) && intentName.equals(model.getName()) || (intentName.equals(model.getTo()) && model.getName().equals(user.getEmail())))) {
                     rcvAdap.add(model);
                 }
                 rcv.scrollToPosition(rcvAdap.getItemCount() -1 );
@@ -87,7 +87,7 @@ public class ChatPageActivity extends AppCompatActivity{
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                rcvAdap.notifyDataSetChanged();
             }
 
             @Override
@@ -107,10 +107,10 @@ public class ChatPageActivity extends AppCompatActivity{
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if(!input.getText().toString().equals("")){
-            Intent intent = getIntent();
             UserDB userDB = new UserDB();
             String nickname = userDB.getUserNickname(getApplicationContext());
-            RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), intent.getStringExtra("name"), input.getText().toString(), getTime(), nickname, intent.getStringExtra("nickname"));
+            GetTimeDate getTimeDate = new GetTimeDate();
+            RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), intentName, input.getText().toString(), getTimeDate.getTime(), getTimeDate.getDate(), nickname, intentNickname, userDB.getProfilenum(getApplicationContext()));
             databaseReference.child("message").push().setValue(model);
             input.setText("");
         }

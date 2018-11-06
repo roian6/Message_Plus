@@ -1,94 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary">
 
 
-
     <TextView
+        android:id="@+id/title_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App Logo"
-        android:textSize="36dp"
-        android:layout_marginTop="64dp"
-        android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true"
-        android:id="@+id/title_login"/>
+        android:layout_marginTop="64dp"
+        android:text="App Logo"
+        android:textColor="#FFFFFF"
+        android:textSize="36dp" />
 
 
-        <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#FFFFFF"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:id="@+id/card_login"
-            android:layout_centerInParent="true"
-            app:cardCornerRadius="8dp">
-
-            <LinearLayout
-                android:layout_margin="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+            android:layout_margin="12dp"
+            android:orientation="vertical">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="ID or Email"
                 android:id="@+id/login_id"
-                />
-            <EditText
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:id="@+id/login_password"
-                />
-            </LinearLayout>
+                android:hint="이메일" />
 
-        </android.support.v7.widget.CardView>
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="패스워드"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/card_login"
-        android:layout_margin="14dp">
+        android:layout_margin="14dp"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log in"
-            android:textAllCaps="false"
-            android:id="@+id/btn_login"
-            android:onClick="onClick"
             android:background="@color/colorPrimaryDark"
-            android:textColor="#FFFFFF"/>
+            android:onClick="onClick"
+            android:text="로그인"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_newaccount"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
-        android:onClick="onClick"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        android:text="Create a new Account"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
+        <ProgressBar
+            android:id="@+id/progress_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorPrimaryLight"
+            android:visibility="invisible" />
 
+        <Button
+            android:id="@+id/btn_newaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:onClick="onClick"
+            android:text="새 계정 만들기"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
 
-
-
-
-
+    </LinearLayout>
 
 
 </RelativeLayout>

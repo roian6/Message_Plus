@@ -25,5 +25,16 @@ public class UserDB {
     public String getUserNickname(Context context){
         return getSharedPreferences(context).getString("nickname", "");
     }
-
+    public String getUserEmail(Context context){
+        return getSharedPreferences(context).getString("email", "");
+    }
+    public String getUserKey(Context context){
+        return getSharedPreferences(context).getString("userkey", "");
+    }
+    public String getIntro(Context context){
+        return getSharedPreferences(context).getString("intro", "");
+    }
+    public int getProfilenum(Context context){
+        return getSharedPreferences(context).getInt("profilenum", 0);
+    }
 }

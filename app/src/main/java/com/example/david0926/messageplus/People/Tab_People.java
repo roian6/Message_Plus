@@ -93,7 +93,7 @@ public class Tab_People extends Fragment{
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                rcvAdap.notifyDataSetChanged();
             }
 
             @Override
@@ -128,6 +128,7 @@ public class Tab_People extends Fragment{
                 intent.putExtra("dialog_people_name", rcvAdap.getItems().get(position).getNickname());
                 intent.putExtra("dialog_people_email", rcvAdap.getItems().get(position).getEmail());
                 intent.putExtra("dialog_people_intro", rcvAdap.getItems().get(position).getIntro());
+                intent.putExtra("dialog_people_profilenum", rcvAdap.getItems().get(position).getProfilenum());
                 startActivity(intent);
             }
         });

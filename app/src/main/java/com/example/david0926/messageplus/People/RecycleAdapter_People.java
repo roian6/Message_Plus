@@ -1,6 +1,11 @@
 package com.example.david0926.messageplus.People;
 
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +41,7 @@ public class RecycleAdapter_People extends RecyclerView.Adapter<RecycleHolder_Pe
     public RecycleHolder_People onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycle_item_people, parent, false);
-        return new RecycleHolder_People(v, R.drawable.ic_person);
+        return new RecycleHolder_People(v);
     }
 
     @Override
@@ -45,8 +50,7 @@ public class RecycleAdapter_People extends RecyclerView.Adapter<RecycleHolder_Pe
         holder.nickname.setText(item.getNickname());
         holder.email.setText(item.getEmail());
         holder.intro.setText(item.getIntro());
-        //holder.msg.setText(item.getMsg());
-        //holder.profile.setImageResource(items.get(position).getProfileId());
+        holder.profile.setBackgroundColor(item.getProfilenum());
     }
 
     @Override

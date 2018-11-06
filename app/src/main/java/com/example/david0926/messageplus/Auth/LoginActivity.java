@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-import com.example.david0926.messageplus.DBLoadActivity;
-import com.example.david0926.messageplus.MainActivity;
 import com.example.david0926.messageplus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity{
 
     EditText id, password;
+    ProgressBar loginProgress;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -44,14 +43,13 @@ public class LoginActivity extends AppCompatActivity{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if(user != null){
-                    Toast.makeText(getApplicationContext(), "Login Success",
-                            Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), "Hello, "+user.getEmail()+"!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "안녕하세요, "+user.getEmail()+"!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, DBLoadActivity.class));
+                    finish();
 
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Please login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "로그인을 해주세요", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -85,7 +83,7 @@ public class LoginActivity extends AppCompatActivity{
                     login(id.getText().toString(), password.getText().toString());
                 }
                 else{
-                    Toast.makeText(this, "fill the blank", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "빈칸을 채워주세요", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -97,20 +95,21 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void login(String email, String password) {
+        loginProgress = findViewById(R.id.progress_login);
+        loginProgress.setVisibility(View.VISIBLE);
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Login Success",
-                                    Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(), "Hello, "+id.getText().toString()+"!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "안녕하세요, "+id.getText().toString()+"!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, DBLoadActivity.class));
                             finish();
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Login Failed",
+                            Toast.makeText(getApplicationContext(), "로그인 실패",
                                     Toast.LENGTH_SHORT).show();
+                            loginProgress.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

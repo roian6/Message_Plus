@@ -23,20 +23,12 @@ public class RecycleModel_Chat {
         this.profilenum = profilenum;
     }
 
-    public RecycleModel_Chat(String name, String msg, String time, String nickname){
+    public RecycleModel_Chat(String name, String msg, String time, String nickname, int profilenum){
         this.name=name;
         this.msg=msg;
         this.time=time;
         this.nickname=nickname;
         this.profilenum=profilenum;
-    }
-
-    public int getProfileNum() {
-        return profilenum;
-    }
-
-    public void setProfileNum() {
-        this.profilenum = profilenum;
     }
 
     public String getName() {

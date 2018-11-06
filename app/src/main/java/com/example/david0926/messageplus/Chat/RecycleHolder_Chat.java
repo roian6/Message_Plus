@@ -11,15 +11,14 @@ public class RecycleHolder_Chat extends RecyclerView.ViewHolder{
 
     public TextView name, msg, time;
     public ImageView profile;
-    public int profileId;
 
-    public RecycleHolder_Chat(View itemView, int imageId) {
+    public RecycleHolder_Chat(View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.chat_name);
         msg = itemView.findViewById(R.id.chat_msg);
         time = itemView.findViewById(R.id.chat_time);
         profile = itemView.findViewById(R.id.chat_profile);
-        profileId = imageId;
+
 
 
     }

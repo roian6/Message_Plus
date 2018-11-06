@@ -34,7 +34,7 @@ public class RecycleAdapter_Chat extends RecyclerView.Adapter<RecycleHolder_Chat
     public RecycleHolder_Chat onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycle_item_chat, parent, false);
-        return new RecycleHolder_Chat(v, R.drawable.ic_person);
+        return new RecycleHolder_Chat(v);
     }
 
     @Override
@@ -43,7 +43,6 @@ public class RecycleAdapter_Chat extends RecyclerView.Adapter<RecycleHolder_Chat
         holder.name.setText(item.getNickname()+" ("+item.getName()+")");
         holder.msg.setText(item.getMsg());
         holder.time.setText(item.getTime());
-        //holder.profile.setImageResource(items.get(position).getProfileId());
     }
 
     @Override

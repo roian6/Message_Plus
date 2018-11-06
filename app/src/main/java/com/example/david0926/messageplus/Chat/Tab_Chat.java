@@ -51,9 +51,10 @@ public class Tab_Chat extends Fragment{
         final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         rcv = v.findViewById(R.id.chat_recycler);
-        LinearLayoutManager lm = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false);
-        rcv.setLayoutManager(lm);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        rcv.setLayoutManager(linearLayoutManager);
         rcvAdap = new RecycleAdapter_Chat();
         rcv.setAdapter(rcvAdap);
 
@@ -75,6 +76,7 @@ public class Tab_Chat extends Fragment{
                 model.setMsg(member.getMsg());
                 model.setTime(member.getTime());
                 model.setNickname(member.getNickname());
+                model.setProfilenum(member.getProfilenum());
                 //model.setProfileNum(member.get);
 
                 if(member.getTo().equals(user.getEmail())){
@@ -112,7 +114,7 @@ public class Tab_Chat extends Fragment{
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                rcvAdap.notifyDataSetChanged();
             }
 
             @Override

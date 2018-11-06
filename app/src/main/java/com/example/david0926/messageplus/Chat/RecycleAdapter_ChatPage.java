@@ -29,6 +29,9 @@ public class RecycleAdapter_ChatPage extends RecyclerView.Adapter<RecycleHolder_
     public int getItemViewType(int position) {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(items.get(position).getTime().equals("")){
+            return 2;
+        }
         if(items.get(position).getUid().equals(user.getUid())){
             return 1;
         }
@@ -47,6 +50,10 @@ public class RecycleAdapter_ChatPage extends RecyclerView.Adapter<RecycleHolder_
                 View v2 = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.recycle_item_chatpage_send, parent, false);
                 return new RecycleHolder_ChatPage(v2);
+            case 2:
+                View v3 = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.recycle_item_chatpage_new, parent, false);
+                return new RecycleHolder_ChatPage(v3);
             default:
                 View v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.recycle_item_chatpage_get, parent, false);

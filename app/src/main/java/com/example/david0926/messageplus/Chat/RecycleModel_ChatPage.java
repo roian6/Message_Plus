@@ -2,7 +2,8 @@ package com.example.david0926.messageplus.Chat;
 
 
 public class RecycleModel_ChatPage {
-    private String name, uid, to, msg, time, nickname, nicknameto;
+    private String name, uid, to, msg, time, date, nickname, nicknameto;
+    int profilenum;
 
     public String getNickname() {
         return nickname;
@@ -29,7 +30,7 @@ public class RecycleModel_ChatPage {
     }
 
 
-    public RecycleModel_ChatPage(){}
+
 
     public String getNicknameto() {
         return nicknameto;
@@ -39,14 +40,34 @@ public class RecycleModel_ChatPage {
         this.nicknameto = nicknameto;
     }
 
-    public RecycleModel_ChatPage(String name, String uid, String to, String msg, String time, String nickname, String nicknameto){
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public RecycleModel_ChatPage(){}
+
+    public int getProfilenum() {
+        return profilenum;
+    }
+
+    public void setProfilenum(int profilenum) {
+        this.profilenum = profilenum;
+    }
+
+    public RecycleModel_ChatPage(String name, String uid, String to, String msg, String time, String date, String nickname, String nicknameto, int profilenum){
         this.name=name;
         this.uid=uid;
         this.to=to;
         this.msg=msg;
         this.time=time;
+        this.date=date;
         this.nickname=nickname;
         this.nicknameto=nicknameto;
+        this.profilenum=profilenum;
 
     }
 

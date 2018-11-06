@@ -11,16 +11,12 @@ public class RecycleHolder_People extends RecyclerView.ViewHolder{
 
     public TextView nickname, email, intro;
     public ImageView profile;
-    public int profileId;
 
-    public RecycleHolder_People(View itemView, int imageId) {
+    public RecycleHolder_People(View itemView) {
         super(itemView);
         nickname = itemView.findViewById(R.id.people_name);
         email = itemView.findViewById(R.id.people_email);
         intro = itemView.findViewById(R.id.people_msg);
         profile = itemView.findViewById(R.id.people_profile);
-        profileId = imageId;
-
-
     }
 }

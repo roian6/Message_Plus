@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.david0926.messageplus.Auth.UserDB;
+import com.example.david0926.messageplus.Chat.ChatPageActivity;
 import com.example.david0926.messageplus.Chat.RecycleModel_ChatPage;
 import com.example.david0926.messageplus.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ public class Dialog_People extends Activity {
 
     TextView name, email, intro;
     Button btn_ok, btn_cancel;
+    ImageView profile;
 
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -36,17 +39,15 @@ public class Dialog_People extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_people);
 
-
-
-
-
+        Intent getIntent = getIntent();
         name = findViewById(R.id.dialog_people_name);
         email = findViewById(R.id.dialog_people_email);
         intro = findViewById(R.id.dialog_people_intro);
-        Intent intent = getIntent();
-        name.setText(intent.getStringExtra("dialog_people_name"));
-        email.setText(intent.getStringExtra("dialog_people_email"));
-        intro.setText(intent.getStringExtra("dialog_people_intro"));
+        profile = findViewById(R.id.dialog_people_profile);
+        name.setText(getIntent.getStringExtra("dialog_people_name"));
+        email.setText(getIntent.getStringExtra("dialog_people_email"));
+        intro.setText(getIntent.getStringExtra("dialog_people_intro"));
+        profile.setBackgroundColor(getIntent.getIntExtra("dialog_people_profilenum", 0));
 
         btn_ok = findViewById(R.id.btn_people_ok);
         btn_cancel = findViewById(R.id.btn_people_cancel);
@@ -55,11 +56,16 @@ public class Dialog_People extends Activity {
             public void onClick(View v) {
                 firebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                    Intent intent = getIntent();
-                    UserDB userDB = new UserDB();
-                    String nickname = userDB.getUserNickname(getApplicationContext());
-                    RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), intent.getStringExtra("dialog_people_email"), "이제 대화를 시작할 수 있습니다.", "", nickname, intent.getStringExtra("dialog_people_name"));
-                    databaseReference.child("message").push().setValue(model);
+                UserDB userDB = new UserDB();
+                String nickname = userDB.getUserNickname(getApplicationContext());
+                Intent getIntent = getIntent();
+                RecycleModel_ChatPage model = new RecycleModel_ChatPage(user.getEmail(), user.getUid(), getIntent.getStringExtra("dialog_people_email"), "이제 대화를 시작할 수 있습니다.", "", "", nickname, getIntent.getStringExtra("dialog_people_name"), getIntent.getIntExtra("dialog_people_profilenum", 0));
+                databaseReference.child("message").push().setValue(model);
+                Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
+                intent.putExtra("name", getIntent.getStringExtra("dialog_people_email"));
+                intent.putExtra("nickname", getIntent.getStringExtra("dialog_people_name"));
+                startActivity(intent);
+                finish();
             }
         });
         btn_cancel.setOnClickListener(new View.OnClickListener() {
