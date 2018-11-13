@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
-import com.example.david0926.messageplus.Auth.UserDB;
-import com.example.david0926.messageplus.Auth.UserModel;
-import com.example.david0926.messageplus.Chat.RecycleModel_ChatPage;
 import com.example.david0926.messageplus.MainActivity;
 import com.example.david0926.messageplus.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DBLoadActivity extends AppCompatActivity{
 
+    //현재 로그인한 유저의 정보를 UserDB에 저장하는 Activity
+
+    //Firebase Authentication, Database 가져오기
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private FirebaseAuth firebaseAuth;
@@ -29,22 +28,22 @@ public class DBLoadActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbload);
-        firebaseAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child("user").addChildEventListener(new ChildEventListener() {
+        firebaseAuth = FirebaseAuth.getInstance(); //Firebase 현재 Auth 정보 가져오기
+        final FirebaseUser user = firebaseAuth.getCurrentUser(); //현재 유저 정보 가져오기
+
+        databaseReference.child("user").addChildEventListener(new ChildEventListener() { //Firebase Database의 user 항목에 이벤트 리스너 생성
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { //user 항목에 값이 추가되었다면
 
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                model.setIntro('#'+dataSnapshot.getValue(UserModel.class).getIntro());
+                UserModel model = dataSnapshot.getValue(UserModel.class); // 추가된 값을 UserModel 양식으로 DB에서 가져옴
+                model.setIntro('#'+dataSnapshot.getValue(UserModel.class).getIntro()); //한줄소개 문구 앞에 '#' 추가
 
-
-                UserDB userDB = new UserDB();
-                if(model.getUserkey().equals(user.getUid())){
-                    userDB.add(getApplicationContext(), model);
+                UserDB userDB = new UserDB(); //현재 유저 정보가 담긴 DB 가져오기
+                if(model.getUserkey().equals(user.getUid())){ //만약 Firebase DB에서 가져온 값과 유저 정보가 같다면(가져온 유저가 본인이라면)
+                    userDB.add(getApplicationContext(), model); //유저 정보 DB에 본인 정보 입력
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+                    finish(); //MainActivity로 이동 후 종료
                 }
 
             }

@@ -1,43 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_gravity="center">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/materialBlack"
-        android:src="@drawable/ic_people_white"
-        android:id="@+id/dialog_people_profile"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="4dp"
-            android:elevation="16dp"
-            android:backgroundTint="@android:color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/side_nav_bar">
             <TextView
                 android:id="@+id/dialog_people_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:layout_margin="8dp"
-                android:text="#Default Intro" />
+                android:layout_centerInParent="true"
+                android:textAlignment="center"
+                android:text="#Default Intro"
+                android:textSize="18dp"/>
 
-        </android.support.v7.widget.CardView>
 
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            >
+
+        </View>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_person"
+        android:background="@color/materialYellow"
+        android:id="@+id/profile_dialog"
+        android:layout_centerInParent="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/profile_dialog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp">
         <TextView
             android:id="@+id/dialog_people_name"
             android:layout_width="wrap_content"
@@ -53,36 +75,33 @@
             android:textColor="@android:color/darker_gray"
             android:text="Default email" />
 
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="end"
-        android:layout_margin="12dp">
-
-        <Button
-            android:id="@+id/btn_people_cancel"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:textColor="@color/colorPrimary"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="취소" />
-        <Button
-            android:id="@+id/btn_people_ok"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="대화하기" />
+            android:orientation="horizontal"
+            android:layout_gravity="end"
+            android:layout_margin="12dp">
 
+            <Button
+                android:id="@+id/btn_people_cancel"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="취소" />
+            <Button
+                android:id="@+id/btn_people_ok"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대화하기" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>
 
 

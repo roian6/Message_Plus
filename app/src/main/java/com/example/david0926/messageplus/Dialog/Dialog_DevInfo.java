@@ -14,7 +14,8 @@ public class Dialog_DevInfo extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_devinfo).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setTitle("개발 정보")
+                .setMessage(R.string.dialog_devinfo).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

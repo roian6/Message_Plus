@@ -4,16 +4,16 @@
     <item
         android:id="@+id/action_devinfo"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="개발자 정보"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_user"
         android:orderInCategory="100"
-        android:title="User"
+        android:title="내 계정 보기"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:title="Logout"
+        android:title="로그아웃"
         app:showAsAction="never" />
 </menu>

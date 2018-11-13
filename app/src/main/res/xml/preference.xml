@@ -10,33 +10,36 @@
 
 
     <PreferenceCategory
-        android:title="Program Settings"
+        android:title="프로그램 설정"
         />
-    <CheckBoxPreference
+    <SwitchPreference
         android:key="setting_push"
-        android:title="Push Alarm"
+        android:title="푸시 알림"
         android:defaultValue="true" />
-    <EditTextPreference
+    <SwitchPreference
+        android:key="setting_vib"
+        android:title="진동"
+        android:defaultValue="true" />
+    <ListPreference
         android:key="setting_color"
-        android:title="Set Color"
+        android:title="채팅방 색상"
         android:defaultValue="#FFFFFF"
-        android:dialogTitle="Set Color"
+        android:dialogTitle="채팅방 색상"
         android:inputType="text"
+        android:entries="@array/setting_colors"
+        android:entryValues="@array/setting_colors_value"
         />
 
     <PreferenceCategory
-        android:title="Another Settings"/>
-
-    <CheckBoxPreference
-        android:key="setting_push2"
-        android:title="Push Alarm2"
-        android:defaultValue="true" />
-    <EditTextPreference
-        android:key="setting_color2"
-        android:title="Set Color2"
-        android:defaultValue="#FFFFFF"
-        android:dialogTitle="Set Color"
-        android:inputType="text"
-        />
+        android:title="계정 설정"/>
+    <Preference
+        android:key="setting_userinfo"
+        android:title="회원 정보"/>
+    <Preference
+        android:key="setting_newpassword"
+        android:title="비밀번호 재설정"/>
+    <Preference
+        android:key="setting_deleteuser"
+        android:title="회원 탈퇴" />
 
 </PreferenceScreen>

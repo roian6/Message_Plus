@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.david0926.messageplus.Auth.UserDB;
-import com.example.david0926.messageplus.Auth.UserModel;
+import com.example.david0926.messageplus.Dialog.Dialog_ChatFab;
+import com.example.david0926.messageplus.Dialog.Dialog_User;
 import com.example.david0926.messageplus.R;
-import com.example.david0926.messageplus.RecycleListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -40,7 +42,6 @@ public class Tab_Chat extends Fragment{
     UserDB userDB = new UserDB();
 
     List<RecycleModel_Chat> items = new ArrayList<>();
-    List<String> chatList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -50,6 +51,7 @@ public class Tab_Chat extends Fragment{
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
 
+
         rcv = v.findViewById(R.id.chat_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setReverseLayout(true);
@@ -57,6 +59,15 @@ public class Tab_Chat extends Fragment{
         rcv.setLayoutManager(linearLayoutManager);
         rcvAdap = new RecycleAdapter_Chat();
         rcv.setAdapter(rcvAdap);
+
+        FloatingActionButton fab = v.findViewById(R.id.fab_chat);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment dialogFragment = new Dialog_ChatFab();
+                dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog_chatfab");
+            }
+        });
 
 
 

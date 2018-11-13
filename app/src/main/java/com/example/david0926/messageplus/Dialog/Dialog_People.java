@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +24,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Dialog_People extends Activity {
+public class Dialog_People extends AppCompatActivity {
 
     TextView name, email, intro;
     Button btn_ok, btn_cancel;
     ImageView profile;
+
+
 
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -36,17 +41,26 @@ public class Dialog_People extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.dialog_people);
+
+//        LinearLayout view = findViewById(android.R.id.content);
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+//        layoutParams.width = view.getWidth()/2;
+//        layoutParams.height = view.getHeight()/2;
+//
+//        view.setLayoutParams(layoutParams);
+
 
         Intent getIntent = getIntent();
         name = findViewById(R.id.dialog_people_name);
         email = findViewById(R.id.dialog_people_email);
         intro = findViewById(R.id.dialog_people_intro);
-        profile = findViewById(R.id.dialog_people_profile);
+        profile = findViewById(R.id.profile_dialog);
         name.setText(getIntent.getStringExtra("dialog_people_name"));
         email.setText(getIntent.getStringExtra("dialog_people_email"));
-        intro.setText(getIntent.getStringExtra("dialog_people_intro"));
+        intro.setText("_\n\n" + getIntent.getStringExtra("dialog_people_intro"));
         profile.setBackgroundColor(getIntent.getIntExtra("dialog_people_profilenum", 0));
 
         btn_ok = findViewById(R.id.btn_people_ok);

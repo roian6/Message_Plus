@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.david0926.messageplus.Auth.UserModel;
@@ -52,11 +54,12 @@ public class Tab_People extends Fragment{
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab_people);
+        FloatingActionButton fab = v.findViewById(R.id.fab_people);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
+                rcvAdap.notifyDataSetChanged();
+                Toast.makeText(getContext(), "목록이 갱신되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,8 +84,15 @@ public class Tab_People extends Fragment{
                 model.setProfilenum(dataSnapshot.getValue(UserModel.class).getProfilenum());
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(!model.getEmail().equals(user.getEmail())){
-                    rcvAdap.add(model);
-                    rcvAdap.notifyDataSetChanged();
+                    boolean sameItem = false;
+                    for(int i=0;i<rcvAdap.getItemCount();i++){
+                        if(rcvAdap.getItems().get(i).getEmail().equals(model.getEmail())) sameItem = true;
+                    }
+                    if(!sameItem){
+                        rcvAdap.add(model);
+                        rcvAdap.notifyDataSetChanged();
+                    }
+
                 }
             }
 
@@ -124,6 +134,7 @@ public class Tab_People extends Fragment{
         RecycleClick_People.addTo(rcv).setOnItemClickListener(new RecycleClick_People.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
                 Intent intent = new Intent(getContext(), Dialog_People.class);
                 intent.putExtra("dialog_people_name", rcvAdap.getItems().get(position).getNickname());
                 intent.putExtra("dialog_people_email", rcvAdap.getItems().get(position).getEmail());

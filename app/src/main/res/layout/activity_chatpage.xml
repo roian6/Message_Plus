@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:launchMode="singleInstance"
     android:excludeFromRecents="true"
-    android:taskAffinity="">
+    android:taskAffinity=""
+    android:id="@+id/activity_chatpage">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_chatpage"
@@ -45,10 +46,9 @@
                 android:hint="Aa" />
 
             <Button
-                android:id="@+id/chat_send"
+                android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onSend"
                 android:text="보내기"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/colorPrimary"/>

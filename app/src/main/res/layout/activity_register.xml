@@ -1,110 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
     android:background="@color/colorPrimary">
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="계정 만들기"
-        android:textSize="36dp"
-        android:textColor="#FFFFFF"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/title_login"/>
-
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="36dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:id="@+id/card_login"
-        app:cardCornerRadius="8dp">
-
-        <LinearLayout
-            android:layout_margin="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="닉네임 (최대 8자)"
-                android:id="@+id/reg_nickname"
-                android:maxLength="8"
-                />
-            <EditText
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="한줄소개 (최대 20자)"
-                android:id="@+id/reg_intro"
-                android:maxLength="20"
-                />
-
-            <EditText
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="이메일"
-                android:id="@+id/reg_id"
-                />
-            <EditText
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="패스워드 (a-Z, 0-9, 8자 이상)"
-                android:inputType="textPassword"
-                android:id="@+id/reg_password"
-                />
-            <EditText
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="패스워드 확인"
-                android:inputType="textPassword"
-                android:id="@+id/reg_passwordcheck"
-                />
-
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="14dp">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <Button
+        <android.support.v7.widget.CardView
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:textAllCaps="false"
-            android:id="@+id/btn_register"
-            android:onClick="onClick"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="#FFFFFF"/>
+            android:background="#FFFFFF"
+            android:layout_margin="16dp"
+            android:id="@+id/card_regi">
+
+            <LinearLayout
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="닉네임 (최대 8자)"
+                    android:id="@+id/reg_nickname"
+                    android:maxLength="8"
+                    />
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="한줄소개 (최대 20자)"
+                    android:id="@+id/reg_intro"
+                    android:maxLength="20"
+                    />
+
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress"
+                    android:id="@+id/reg_id"
+                    />
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="패스워드 (a-Z, 0-9, 8자 이상)"
+                    android:inputType="textPassword"
+                    android:id="@+id/reg_password"
+                    />
+                <EditText
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="패스워드 확인"
+                    android:inputType="textPassword"
+                    android:id="@+id/reg_passwordcheck"
+                    />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="회원가입"
+                android:textAllCaps="false"
+                android:id="@+id/btn_register"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF" />
+
+            <ProgressBar
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/colorPrimaryLight"
+                android:visibility="invisible"
+                android:id="@+id/progress_regi" />
+
 
     </LinearLayout>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/colorPrimaryLight"
-        android:visibility="invisible"
-        android:id="@+id/progress_regi" />
 
 
 
@@ -112,4 +103,6 @@
 
 
 
-</LinearLayout>
+
+
+</ScrollView>

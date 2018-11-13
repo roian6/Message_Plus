@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //user
-
+        final UserDB userDB = new UserDB();
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -135,58 +136,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (model.getTime().equals(getTimeDate.getTime()) && model.getDate().equals(getTimeDate.getDate())) {
                         CheckBackground checkBackground = new CheckBackground();
                         if(checkBackground.isAppBackground(getApplicationContext())){
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                NotificationChannel notificationChannel = new NotificationChannel("ChannelID", "ChannelName", NotificationManager.IMPORTANCE_DEFAULT);
-                                notificationChannel.enableLights(true);
-                                notificationChannel.setLightColor(Color.GREEN);
-                                notificationChannel.enableVibration(true);
-                                notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-                                notificationManager.createNotificationChannel(notificationChannel);
+                            if(userDB.isSettingPush(getApplicationContext())){
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    NotificationChannel notificationChannel = new NotificationChannel("ChannelID", "ChannelName", NotificationManager.IMPORTANCE_DEFAULT);
+                                    notificationChannel.enableLights(true);
+                                    notificationChannel.setLightColor(Color.GREEN);
+                                    notificationChannel.enableVibration(true);
+                                    notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+                                    notificationManager.createNotificationChannel(notificationChannel);
 
-                                Notification.Builder builder = new Notification.Builder(getApplicationContext(), "ChannelID");
+                                    Notification.Builder builder = new Notification.Builder(getApplicationContext(), "ChannelID");
 
-                                builder.setContentTitle(model.getNickname() + " (" + model.getName() + ")")
-                                        .setContentText(model.getMsg())
-                                        .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                                        .setAutoCancel(true)
-                                        .setVisibility(Notification.VISIBILITY_PUBLIC);
+                                    builder.setContentTitle(model.getNickname() + " (" + model.getName() + ")")
+                                            .setContentText(model.getMsg())
+                                            .setSmallIcon(R.mipmap.ic_launcher)
+                                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                                            .setAutoCancel(true)
+                                            .setVisibility(Notification.VISIBILITY_PUBLIC);
 
-                                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                                Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
-                                intent.putExtra("name", model.getName());
-                                intent.putExtra("nickname", model.getNickname());
+                                    //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                                    Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
+                                    intent.putExtra("name", model.getName());
+                                    intent.putExtra("nickname", model.getNickname());
 
-                                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                builder.setContentIntent(pendingIntent);
-                                notificationManager.notify(1234, builder.build());
+                                    PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    builder.setContentIntent(pendingIntent);
+                                    notificationManager.notify(1234, builder.build());
 
 
+                                }
+                                else {
+
+                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+                                            .setContentTitle(model.getNickname() + " (" + model.getName() + ")")
+                                            .setContentText(model.getMsg())
+                                            .setSmallIcon(R.mipmap.ic_launcher)
+                                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                                            .setAutoCancel(true)
+                                            .setVisibility(Notification.VISIBILITY_PUBLIC)
+                                            .setVibrate(new long[]{1000, 1000});
+
+                                    Intent intent = new Intent(getApplicationContext(), ChatPageActivity.class);
+                                    intent.putExtra("name", model.getName());
+                                    intent.putExtra("nickname", model.getNickname());
+                                    PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                                    builder.setContentIntent(pendingIntent);
+                                    NotificationManager notificationManager =
+                                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    notificationManager.notify(1234, builder.build());
+                                }
                             }
-                            else {
 
-                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
-                                        .setContentTitle(model.getNickname() + " (" + model.getName() + ")")
-                                        .setContentText(model.getMsg())
-                                        .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-                                        .setAutoCancel(true)
-                                        .setVisibility(Notification.VISIBILITY_PUBLIC)
-                                        .setVibrate(new long[]{1000, 1000});
-
-
-                                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                Toast.makeText(getApplicationContext(), model.getName(), Toast.LENGTH_SHORT).show();
-
-                                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-
-                                builder.setContentIntent(pendingIntent);
-                                NotificationManager notificationManager =
-                                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                                notificationManager.notify(1234, builder.build());
-                            }
                         }
                         else {
                             Snackbar snackbar = Snackbar.make(pager, model.getNickname()+": "+model.getMsg(), Snackbar.LENGTH_LONG);
@@ -207,8 +209,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             textView.setBackground(getDrawable(R.drawable.snackbar_noti));
                             textView.setTextColor(Color.BLACK);
                             snackbar.show();
-                            Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(200);
+                            if(userDB.isSettingVib(getApplicationContext())){
+                                Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(200);
+                            }
+
                         }
 
 
@@ -242,7 +247,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         //Navigation Drawer
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -251,6 +258,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View drawerHead = navigationView.getHeaderView(0);
+        TextView drawerName, drawerEmail;
+        ImageView drawerProfile;
+        drawerName = drawerHead.findViewById(R.id.nav_title);
+        drawerEmail = drawerHead.findViewById(R.id.nav_email);
+        drawerProfile = drawerHead.findViewById(R.id.nav_profile);
+        drawerName.setText(userDB.getUserNickname(getApplicationContext()));
+        drawerEmail.setText(userDB.getUserEmail(getApplicationContext()));
+        drawerProfile.setBackgroundColor(userDB.getProfilenum(getApplicationContext()));
 
 //        title = findViewById(R.id.navTitle);
 //        title.setText("hatban");
@@ -279,15 +295,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_devinfo) {
-            DialogFragment dfm = new Dialog_DevInfo();
-            dfm.show(getSupportFragmentManager(), "dialog_devinfo");
+            DialogFragment dialogFragment = new Dialog_DevInfo();
+            dialogFragment.show(getSupportFragmentManager(), "dialog_devinfo");
         }
         if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
@@ -295,8 +309,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
         if (id == R.id.action_user) {
-            DialogFragment dfm = new Dialog_User();
-            dfm.show(getSupportFragmentManager(), "dialog_user");
+            DialogFragment dialogFragment = new Dialog_User();
+            dialogFragment.show(getSupportFragmentManager(), "dialog_user");
         }
 
         return super.onOptionsItemSelected(item);
@@ -308,21 +322,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_user) {
+            DialogFragment dialogFragment = new Dialog_User();
+            dialogFragment.show(getSupportFragmentManager(), "dialog_user");
+        }
+        else if (id == R.id.nav_logout){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        }
+        else if (id == R.id.nav_share){
+            Toast.makeText(getApplicationContext(), "아직 공유할 항목이 없습니다", Toast.LENGTH_SHORT).show();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

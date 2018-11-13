@@ -9,7 +9,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".IntroActivity">
@@ -23,8 +22,7 @@
         <activity android:name=".Auth.LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Chat.ChatPageActivity"/>
-        <activity android:name=".Dialog.Dialog_People"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".Dialog.Dialog_People" />
         <activity android:name=".Auth.DBLoadActivity"/>
 
 

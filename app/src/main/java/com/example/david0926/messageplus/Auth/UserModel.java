@@ -2,11 +2,15 @@ package com.example.david0926.messageplus.Auth;
 
 public class UserModel {
 
+    //유저 정보를 담을 양식 클래스
+
+    //유저 정보 저장에 필요한 변수 정의
     private String nickname, email, userkey, intro;
     int profilenum;
 
+    public UserModel(){}
 
-    public UserModel(String nickname, String email, String userkey, String intro, int profilenum){
+    public UserModel(String nickname, String email, String userkey, String intro, int profilenum){ //클래스 양식 지정
         this.nickname = nickname;
         this.email = email;
         this.userkey = userkey;
@@ -14,6 +18,8 @@ public class UserModel {
         this.profilenum=profilenum;
     }
 
+
+    //Getter & Setter
     public String getIntro() {
         return intro;
     }
@@ -29,10 +35,6 @@ public class UserModel {
     public void setProfilenum(int profilenum) {
         this.profilenum = profilenum;
     }
-
-
-
-    public UserModel(){}
 
     public String getNickname() {
         return nickname;
