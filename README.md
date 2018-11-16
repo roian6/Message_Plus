@@ -1,3 +1,2 @@
-# Templete
-android study - Making APP Templete
-안드로이드 스터디, SNS 어플리케이션 템플릿 만들기
+# Message Plus+
+유사카톡 만들기 - Firebase를 이용한 Authentication & Realtime Chat 구현
