@@ -1,8 +1,5 @@
 package com.example.david0926.messageplus.Auth;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -71,10 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { //회원가입 버튼이 클릭되었을 때
 
-                //소프트웨어 키보드 숨기기
-                InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
                 if (!nickname.getText().toString().equals("") && !intro.getText().toString().equals("")
                         && !id.getText().toString().equals("") && !password.getText().toString().equals("")
                         && !passwordcheck.getText().toString().equals("")) { //모든 항목이 기입되었을 경우
@@ -85,15 +78,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
 
     private boolean isValidPasswd(String target) { //패스워드 유효성 검사 함수
         Pattern p = Pattern.compile("(^.*(?=.{8,50})(?=.*[0-9])(?=.*[a-z]).*$)"); //패스워드 검사 정규식. 8~50자, 알파벳+숫자
         Matcher m = p.matcher(target); //정규식 대입 검사
-        return m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*"); //정규식 검사값이 옳고 한글이 포함되지 않았다면 참 반환
+        return m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*"); //정규식 검사값이 옳고 한글이 포함되지 않았다면 true 반환
     }
 
     private boolean isValidEmail(String target) { //Email 유효성 검사 함수
@@ -126,7 +116,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-
         firebaseAuth.createUserWithEmailAndPassword(email, password) //Firebase에 회원가입 요청
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() { //작업 완료 리스너
                     @Override
@@ -135,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser(); //현재 유저 정보 가져오기
                             String[] profileColorList = getApplicationContext().getResources().getStringArray(R.array.colors); //colors 목록에서 프로필 색상 리스트 가져오기
                             int profileColor = Color.parseColor(profileColorList[new Random().nextInt(profileColorList.length)]); //가져온 리스트에서 랜덤 색상 선택
-                            UserModel model = new UserModel(nickname, email, user.getUid(), intro, profileColor); //UserModel 양식에 회원가입 정보 추가
+                            UserModel model = new UserModel(nickname, email, user.getUid(), "#" + intro, profileColor); //UserModel 양식에 회원가입 정보 추가
                             databaseReference.child("user").push().setValue(model); //작성한 model 양식을 Firebase DB에 등록
                             Toast.makeText(getApplicationContext(), "환영합니다, " + id.getText().toString() + "!", Toast.LENGTH_SHORT).show(); //회원가입 성공 토스트
                             finish();

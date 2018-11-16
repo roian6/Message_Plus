@@ -17,16 +17,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_margin="4dp"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
-                android:id="@+id/chat_profile"
-                android:src="@drawable/ic_sms_24dp"
-                android:background="@color/colorPrimary"
-                />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_margin="2dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/chat_profile_circle"
+                    android:src="@color/colorPrimary"
+                    />
+                <ImageView
+                    android:layout_margin="2dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:id="@+id/chat_profile"
+                    android:src="@drawable/ic_sms_24dp"
+                    />
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_gravity="center"

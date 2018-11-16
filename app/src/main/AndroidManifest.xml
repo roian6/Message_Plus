@@ -22,7 +22,7 @@
         <activity android:name=".Auth.LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Chat.ChatPageActivity"/>
-        <activity android:name=".Dialog.Dialog_People" />
+        <activity android:name=".People.PeopleActivity" />
         <activity android:name=".Auth.DBLoadActivity"/>
 
 

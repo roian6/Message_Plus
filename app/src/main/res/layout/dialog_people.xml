@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,92 +16,121 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/people_card"
             android:layout_weight="1"
             android:background="@drawable/side_nav_bar">
-            <TextView
-                android:id="@+id/dialog_people_intro"
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:layout_margin="8dp"
+                android:orientation="vertical"
                 android:layout_centerInParent="true"
-                android:textAlignment="center"
-                android:text="#Default Intro"
-                android:textSize="18dp"/>
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/dialog_people_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="8dp"
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
+                    android:text="#Default Intro"
+                    android:textSize="18dp"/>
+            </LinearLayout>
+
 
 
         </RelativeLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:gravity="bottom|center"
+            android:layout_weight="1.7"
             android:background="@android:color/white"
             >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+                <TextView
+                    android:id="@+id/dialog_people_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Default Name"
+                    android:textColor="@android:color/black" />
 
-        </View>
+                <TextView
+                    android:id="@+id/dialog_people_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="Default email" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="end"
+                    android:layout_margin="12dp">
+
+                    <Button
+                        android:id="@+id/btn_people_cancel"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="취소" />
+                    <Button
+                        android:id="@+id/btn_people_ok"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="대화하기" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_person"
-        android:background="@color/materialYellow"
-        android:id="@+id/profile_dialog"
-        android:layout_centerInParent="true" />
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_below="@+id/profile_dialog"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp">
-        <TextView
-            android:id="@+id/dialog_people_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Default Name"
-            android:textColor="@android:color/black" />
+        app:layout_anchor="@id/people_card"
+        app:layout_anchorGravity="bottom|center"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@color/materialYellow"
+            android:id="@+id/profile_dialog_circle"
+            android:layout_centerInParent="true" />
 
-        <TextView
-            android:id="@+id/dialog_people_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:text="Default email" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="end"
-            android:layout_margin="12dp">
-
-            <Button
-                android:id="@+id/btn_people_cancel"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="취소" />
-            <Button
-                android:id="@+id/btn_people_ok"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="대화하기" />
-
-        </LinearLayout>
-    </LinearLayout>
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_person"
+            android:id="@+id/profile_dialog"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
 
 
-</RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
 
 

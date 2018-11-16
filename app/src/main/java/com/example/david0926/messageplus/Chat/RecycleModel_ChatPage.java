@@ -2,9 +2,27 @@ package com.example.david0926.messageplus.Chat;
 
 
 public class RecycleModel_ChatPage {
-    private String name, uid, to, msg, time, date, nickname, nicknameto;
-    int profilenum;
 
+    //채팅 화면의 아이템 정보를 담을 양식 클래스
+
+    //정보를 저장할 변수 선언
+    private String name, uid, to, msg, time, date, nickname, nicknameto;
+    private int profilenum;
+
+
+    public RecycleModel_ChatPage(String name, String uid, String to, String msg, String time, String date, String nickname, String nicknameto, int profilenum){ //클래스 양식 지정
+        this.name=name;
+        this.uid=uid;
+        this.to=to;
+        this.msg=msg;
+        this.time=time;
+        this.date=date;
+        this.nickname=nickname;
+        this.nicknameto=nicknameto;
+        this.profilenum=profilenum;
+    }
+
+    //Getter & Setter
     public String getNickname() {
         return nickname;
     }
@@ -28,9 +46,6 @@ public class RecycleModel_ChatPage {
     public void setTo(String to) {
         this.to = to;
     }
-
-
-
 
     public String getNicknameto() {
         return nicknameto;
@@ -56,19 +71,6 @@ public class RecycleModel_ChatPage {
 
     public void setProfilenum(int profilenum) {
         this.profilenum = profilenum;
-    }
-
-    public RecycleModel_ChatPage(String name, String uid, String to, String msg, String time, String date, String nickname, String nicknameto, int profilenum){
-        this.name=name;
-        this.uid=uid;
-        this.to=to;
-        this.msg=msg;
-        this.time=time;
-        this.date=date;
-        this.nickname=nickname;
-        this.nicknameto=nicknameto;
-        this.profilenum=profilenum;
-
     }
 
     public String getName() {

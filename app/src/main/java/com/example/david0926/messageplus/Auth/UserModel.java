@@ -4,7 +4,7 @@ public class UserModel {
 
     //유저 정보를 담을 양식 클래스
 
-    //유저 정보 저장에 필요한 변수 정의
+    //유저 정보 저장에 필요한 변수 선언
     private String nickname, email, userkey, intro;
     int profilenum;
 

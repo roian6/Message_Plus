@@ -9,17 +9,15 @@ import com.example.david0926.messageplus.R;
 
 public class RecycleHolder_ChatPage extends RecyclerView.ViewHolder{
 
-    public TextView msg, time;
-//    public ImageView profile;
-//    public int profileId;
+    //채팅 화면 RecyclerView의 ViewHolder
+    
+    public TextView msg, time; //TextView 선언
 
+    //ViewHolder
     public RecycleHolder_ChatPage(View itemView) {
         super(itemView);
+        //각 아이템들을 RecyclerView 아이템 뷰의 항목과 연결
         msg = itemView.findViewById(R.id.chatpage_msg);
         time = itemView.findViewById(R.id.chatpage_time);
-//        profile = itemView.findViewById(R.id.chat_profile);
-//        profileId = imageId;
-
-
     }
 }

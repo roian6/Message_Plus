@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
     ProgressBar loginProgress;
     Button loginBtn, regiBtn;
 
-    //Firebase Authentication, Database 가져오기
+    //Firebase Authentication 가져오기
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -73,10 +73,6 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //Login 버튼이 클릭되었을 때
-
-                //소프트웨어 키보드 숨기기
-                InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
                 //EditText findViewById
                 id = findViewById(R.id.login_id);

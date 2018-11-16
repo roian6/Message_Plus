@@ -68,7 +68,7 @@ public class ChatPageActivity extends AppCompatActivity{
         intentNickname = getIntent().getStringExtra("nickname");
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar_chatpage); //ToolBar findViewById
+        Toolbar toolbar = findViewById(R.id.toolbar_chatpage); //ToolBar 가져오기
         toolbar.setTitle(intentNickname); //ToolBar의 Title을 대화 상대의 닉네임으로 설정
         toolbar.setTitleTextColor(Color.WHITE); //Title 글자 색상을 흰색으로 설정
 
@@ -100,7 +100,7 @@ public class ChatPageActivity extends AppCompatActivity{
 
                 if(model.getTime().equals("")){ //만약 받아온 메세지에 전송시간이 명시되어있지 않다면(대화 시작을 알리는 메세지라면)
 
-                    for(int i=0;i<rcvAdap.getItemCount();i++){ //현재 RecyclerView Adapter의 크기만큼 반복
+                    for(int i=0;i<rcvAdap.getItemCount();i++){ //현재 RecyclerView의 아이템 개수만큼 반복
                         if(rcvAdap.getItemViewType(i)==2) newChat = false; //Adapter의 현재 항목에 대화 시작을 알리는 메세지가 이미 있다면 첫 대화 여부를 false로 지정
                     }
                     if(newChat){ //만약 처음으로 전송된 대화 시작 안내 메세지라면
